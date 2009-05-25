@@ -258,6 +258,12 @@ module Facebooker
       end
     end
 
+		def friends_for_user(uid)
+			post("facebook.friends.get",:uid => uid) do |users|
+				users.map { |u| User.new(u)}
+			end
+		end
+
     def pages(options = {})
       raise ArgumentError, 'fields option is mandatory' unless options.has_key?(:fields)
       @pages ||= {}

@@ -148,6 +148,12 @@ module Facebooker
         User.new(hash['uid'], session, hash)
       end
     end
+
+		def friend_info(uid, *fields)
+			@friend ||= session.post('facebook.users.getInfo', :fields => collect(fields), :uids => uid).map do |hash|
+				User.new(hash['uid'], session, hash)
+			end.first
+		end
     
     ###
     # Retrieve profile data for logged in user
